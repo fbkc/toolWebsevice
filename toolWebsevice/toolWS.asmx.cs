@@ -143,10 +143,12 @@ namespace toolWebsevice
         {
             //公司/会员信息
             cmUserInfo uInfo = bll.GetUser(string.Format("where username='{0}'", uname));
+            string userTel = NetHelper.GetMD5(uInfo.telephone + "100dh888");//电话号码+100dh888 的MD5值
             var data = new
             {
                 userInfo = uInfo,
-                userTel = NetHelper.GetMD5(uInfo.telephone + "100dh888"),//电话号码+100dh888 的MD5值
+                
+                userImg=userTel
             };
             string html = SqlHelper.WriteTemplate(data, "RightFloatPage.html");
             return html;
@@ -159,7 +161,7 @@ namespace toolWebsevice
         /// <param name="realmId"></param>
         /// <returns></returns>
         [WebMethod(Description = "获取用户信息，右侧浮动显示", EnableSession = true)]
-        public Stream CreateImg(string txt)
+        public byte[] CreateImg(string txt)
         {
             System.Drawing.Bitmap image = new System.Drawing.Bitmap(70, 22);
             Graphics g = Graphics.FromImage(image);
@@ -171,7 +173,7 @@ namespace toolWebsevice
             //g.DrawRectangle(new Pen(Color.Silver), 0, 0, image.Width - 1, image.Height - 1);
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
             image.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
-            return ms;
+            return ms.ToArray();
         }
         /// <summary>
         /// 把文字转换才Bitmap
