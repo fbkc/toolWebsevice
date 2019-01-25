@@ -22,10 +22,10 @@ namespace toolWebsevice
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
-    // [System.Web.Script.Services.ScriptService]
+    [System.Web.Script.Services.ScriptService]
     public class toolWS : System.Web.Services.WebService, IRequiresSessionState
     {
-        private static string host = "http://39.105.196.3:1874/test";
+        private static string host = "http://39.105.196.3:4399/test";
         private static string uname = "";
         private static List<realmNameInfo> realList = null;
         BLL bll = new BLL();
@@ -133,93 +133,6 @@ namespace toolWebsevice
         }
 
         /// <summary>
-        /// 右侧浮动客户信息
-        /// </summary>
-        /// <param name="uname">用户名</param>
-        /// <param name="realmId">来自哪个站，返回相应模板格式</param>
-        /// <returns></returns>
-        [WebMethod(Description = "获取用户信息，右侧浮动显示", EnableSession = true)]
-        public string GetUserInfo(string uname, string realmId)
-        {
-            //公司/会员信息
-            cmUserInfo uInfo = bll.GetUser(string.Format("where username='{0}'", uname));
-            string userTel = NetHelper.GetMD5(uInfo.telephone + "100dh888");//电话号码+100dh888 的MD5值
-            var data = new
-            {
-                userInfo = uInfo,
-                
-                userImg=userTel
-            };
-            string html = SqlHelper.WriteTemplate(data, "RightFloatPage.html");
-            return html;
-        }
-
-        /// <summary>
-        /// 将数字电话转换成图片电话
-        /// </summary>
-        /// <param name="uname"></param>
-        /// <param name="realmId"></param>
-        /// <returns></returns>
-        [WebMethod(Description = "获取用户信息，右侧浮动显示", EnableSession = true)]
-        public byte[] CreateImg(string txt)
-        {
-            System.Drawing.Bitmap image = new System.Drawing.Bitmap(70, 22);
-            Graphics g = Graphics.FromImage(image);
-            //得到Bitmap(传入Rectangle.Empty自动计算宽高)
-            Font font = new System.Drawing.Font("Arial", 12, (System.Drawing.FontStyle.Bold));
-            System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(new Rectangle(0, 0, image.Width, image.Height), Color.Blue, Color.DarkRed, 1.2F, true);
-            g.DrawString(txt.Trim(), font, brush, 2, 2);
-            ////画图片的前景噪音点
-            //g.DrawRectangle(new Pen(Color.Silver), 0, 0, image.Width - 1, image.Height - 1);
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            image.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
-            return ms.ToArray();
-        }
-        /// <summary>
-        /// 把文字转换才Bitmap
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="rect">用于输出的矩形，文字在这个矩形内显示，为空时自动计算</param>
-        /// <param name="fontcolor">字体颜色</param>
-        /// <param name="backColor">背景颜色</param>
-        /// <returns></returns>
-        private Bitmap TextToBitmap(string text, Font font, Rectangle rect, Color fontcolor, Color backColor)
-        {
-            Graphics g;
-            Bitmap bmp;
-            StringFormat format = new StringFormat(StringFormatFlags.NoClip);
-            if (rect == Rectangle.Empty)
-            {
-                bmp = new Bitmap(1, 1);
-                g = Graphics.FromImage(bmp);
-                //计算绘制文字所需的区域大小（根据宽度计算长度），重新创建矩形区域绘图
-                SizeF sizef = g.MeasureString(text, font, PointF.Empty, format);
-
-                int width = (int)(sizef.Width + 1);
-                int height = (int)(sizef.Height + 1);
-                rect = new Rectangle(0, 0, width, height);
-                bmp.Dispose();
-
-                bmp = new Bitmap(width, height);
-            }
-            else
-            {
-                bmp = new Bitmap(rect.Width, rect.Height);
-            }
-
-            g = Graphics.FromImage(bmp);
-
-            //使用ClearType字体功能
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            g.FillRectangle(new SolidBrush(backColor), rect);
-            SolidBrush brush = new SolidBrush(fontcolor);
-            //Brush brush = new SolidColorBrush(fontcolor);
-            g.DrawString(text, font, brush, rect, format);
-            return bmp;
-        }
-
-        /// <summary>
         /// post接口
         /// </summary>
         /// <param name="strJson"></param>
@@ -299,7 +212,7 @@ namespace toolWebsevice
             string path = HttpContext.Current.Server.MapPath("~/test/" + username + "/");
 
             // 读取模板文件
-            string temp = HttpContext.Current.Server.MapPath("~/HtmlPage1.html");//模版文件
+            string temp = HttpContext.Current.Server.MapPath("~/templates/DetailModel.html");//模版文件
 
             //string str = SiteTemplate();//读取模版页面html代码
             string str = "";
