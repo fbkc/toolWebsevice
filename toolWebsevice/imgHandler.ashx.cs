@@ -16,6 +16,7 @@ namespace toolWebsevice
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "image/Gif";
+            context.Response.AddHeader("Access-Control-Allow-Origin", "*");
             System.Drawing.Bitmap image = new System.Drawing.Bitmap(150, 25);
             Graphics g = Graphics.FromImage(image);
             string key = "toolWebs";//密钥

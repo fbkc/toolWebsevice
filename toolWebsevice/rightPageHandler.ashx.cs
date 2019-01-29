@@ -17,6 +17,7 @@ namespace toolWebsevice
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/html";
+            context.Response.AddHeader("Access-Control-Allow-Origin", "*");
             string uname = context.Request["uname"];
             string realmId = context.Request["realmId"];
             if (!string.IsNullOrEmpty(uname))

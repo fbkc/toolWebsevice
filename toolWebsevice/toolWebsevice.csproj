@@ -72,6 +72,8 @@
   <ItemGroup>
     <Content Include="imgHandler.ashx" />
     <Content Include="FootHandler.ashx" />
+    <Content Include="LoginHandler.ashx" />
+    <Content Include="ProductNewsHandler.ashx" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="rightPageHandler.ashx" />
     <None Include="Web.Debug.config">
@@ -85,11 +87,27 @@
     <Content Include="JWT.dll" />
     <Content Include="Newtonsoft.Json.dll" />
     <Content Include="NVelocity.dll" />
+    <Content Include="statics\css\slide.css" />
+    <Content Include="statics\css\style.css" />
+    <Content Include="statics\images\favicon.ico" />
+    <Content Include="statics\images\logo.jpg" />
+    <Content Include="statics\images\nopic.gif" />
+    <Content Include="statics\images\qq.gif" />
+    <Content Include="statics\images\search_but_1011.jpg" />
+    <Content Include="statics\js\base64.min.js" />
+    <Content Include="statics\js\date.js" />
+    <Content Include="statics\js\gundong.js" />
+    <Content Include="statics\js\jquery.lazyload.js" />
+    <Content Include="statics\js\responsiveslides.min.js" />
+    <Content Include="statics\js\slide.js" />
+    <Content Include="statics\public\jquery.min.js" />
     <Content Include="templates\DetailModel.html" />
     <Content Include="templates\FootPage.html" />
     <Content Include="templates\rightFloatPage.html" />
     <Content Include="toolWS.asmx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AShelp.cs" />
@@ -104,8 +122,14 @@
       <DependentUpon>imgHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="json.cs" />
+    <Compile Include="LoginHandler.ashx.cs">
+      <DependentUpon>LoginHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="MyInfo.cs" />
     <Compile Include="NetHelper.cs" />
+    <Compile Include="ProductNewsHandler.ashx.cs">
+      <DependentUpon>ProductNewsHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="realmNameInfo.cs" />
     <Compile Include="rightPageHandler.ashx.cs">
