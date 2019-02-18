@@ -88,7 +88,6 @@
     <Content Include="Newtonsoft.Json.dll" />
     <Content Include="NVelocity.dll" />
     <Content Include="statics\css\slide.css" />
-    <Content Include="statics\css\style.css" />
     <Content Include="statics\images\favicon.ico" />
     <Content Include="statics\images\logo.jpg" />
     <Content Include="statics\images\nopic.gif" />
