@@ -27,10 +27,12 @@ namespace toolWebsevice
                 string key = "toolWebs";//密钥
                 string iv = "100dh888";//偏移量
                 string userTel = Tools.Encode(uInfo.telephone, key, iv);
+                string userModile = Tools.Encode(uInfo.modile, key, iv);
                 var data = new
                 {
                     userInfo = uInfo,
-                    userTel//电话号码
+                    userTel,//电话号码
+                    userModile//手机
                 };
                 string html = SqlHelper.WriteTemplate(data, "RightFloatPage.html");
                 context.Response.Write(html);
