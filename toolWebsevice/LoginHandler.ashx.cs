@@ -56,7 +56,7 @@ namespace toolWebsevice
                 if (dosubmit != "1")
                     return json.WriteJson(0, "参数错误", new { });
                 if (key != keyValue)
-                    return json.WriteJson(0, "值错误", new { });
+                    return json.WriteJson(0, "key值错误", new { });
                 cmUserInfo userInfo = bll.GetUser(string.Format("where username='{0}'", username.Trim()));
                 if (userInfo == null)
                     return json.WriteJson(0, "用户名不存在", new { });

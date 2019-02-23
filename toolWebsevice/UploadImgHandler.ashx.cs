@@ -16,10 +16,20 @@ namespace toolWebsevice
 
         public void ProcessRequest(HttpContext context)
         {
+            BLL bll = new BLL();
             context.Response.ContentType = "image/png";
             context.Response.AddHeader("Access-Control-Allow-Origin", "*");
-            string pId = context.Request["productId"];
+            string pId = context.Request["productId"];//产品Id
             string username = context.Request["username"];
+            string key = context.Request["key"];
+            string keyValue = NetHelper.GetMD5(username + "100dh888");
+            if (key != keyValue)
+                context.Response.Write(json.WriteJson(0, "key值错误", new { }));
+            cmUserInfo userInfo = bll.GetUser(string.Format("where username='{0}'", username.Trim()));
+            if (userInfo == null)
+                context.Response.Write(json.WriteJson(0, "该用户不存在", new { }));
+            if (userInfo.isStop)
+                context.Response.Write(json.WriteJson(0, "该用户已被停用", new { }));
             string fileUrl = "";
             try
             {
@@ -41,27 +51,24 @@ namespace toolWebsevice
                     {
                         Directory.CreateDirectory(fileDir);
                     }
-                    //string phyPath = context.Request.PhysicalApplicationPath;
-                    //string savePath = phyPath + virPath;
                     string saveDir = fileDir + newfileName + "." + suffix;//文件服务器存放路径
                     fileUrl = "/upfiles/" + username + "/" + newfileName + "." + suffix;
                     _upfile.SaveAs(saveDir);//保存图片
-                    //#region 存到sql图片库
-                    //imageBLL bll = new imageBLL();
-                    //imageInfo img = new imageInfo();
-                    //img.imageId = newfileName;
-                    //img.imageURL = fileUrl;
-                    //img.userId = model.Id;
-                    //img.productId = int.Parse(pId);
-                    //bll.AddImg(img);
-                    //#endregion
+                    #region 存到sql图片库
+                    imageInfo img = new imageInfo();
+                    img.imageId = newfileName;
+                    img.imageURL = fileUrl;
+                    img.userId = userInfo.Id;
+                    img.productId = int.Parse(pId);
+                    bll.AddImg(img);
+                    #endregion
                 }
             }
             catch (Exception ex)
             {
                 context.Response.Write(ex.ToString());
             }
-            context.Response.Write("http://tool.100dh.cn" + fileUrl);
+            context.Response.Write(json.WriteJson(1, "上传成功", new { imgUrl = "http://tool.100dh.cn" + fileUrl }));
         }
 
         public bool IsReusable

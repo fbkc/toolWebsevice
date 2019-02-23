@@ -159,6 +159,11 @@ namespace toolWebsevice
             }
             return rList;
         }
+
+        /// <summary>
+        /// 软件上传图片
+        /// </summary>
+        /// <param name="img"></param>
         public void AddImg(imageInfo img)
         {
             int a = SqlHelper.ExecuteNonQuery(@"INSERT INTO [AutouSend].[dbo].[imageInfo]
