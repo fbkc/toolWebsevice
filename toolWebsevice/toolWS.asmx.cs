@@ -25,11 +25,16 @@ namespace toolWebsevice
     [System.Web.Script.Services.ScriptService]
     public class toolWS : System.Web.Services.WebService, IRequiresSessionState
     {
-        private static string host = "http://39.105.196.3:4399/test";
+        private static string host = "";
         private static string uname = "";
         private static List<realmNameInfo> realList = null;
         BLL bll = new BLL();
+        public cmUserInfo GetUserInfo(string strJson)
+        {
+           return bll.GetUser(string.Format("where Id='{0}'", strJson.Trim()));
+        }
 
+        #region  
         /// <summary>
         /// 登录接口
         /// </summary>
@@ -260,5 +265,6 @@ namespace toolWebsevice
             }
             return true;
         }
+        #endregion
     }
 }

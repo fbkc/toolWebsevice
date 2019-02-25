@@ -41,6 +41,11 @@ namespace toolWebsevice
             context.Response.Write(_strContent.ToString());
         }
         private BLL bll = new BLL();
+        /// <summary>
+        /// 软件调用的登录接口
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public string Login(HttpContext context)
         {
             DateTime s, n;

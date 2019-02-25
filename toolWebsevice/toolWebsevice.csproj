@@ -77,6 +77,7 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="rightPageHandler.ashx" />
     <Content Include="UploadImgHandler.ashx" />
+    <Content Include="UserHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -143,6 +144,9 @@
     </Compile>
     <Compile Include="UploadImgHandler.ashx.cs">
       <DependentUpon>UploadImgHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="UserHandler.ashx.cs">
+      <DependentUpon>UserHandler.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <PropertyGroup>
