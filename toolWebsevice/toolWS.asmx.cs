@@ -31,7 +31,7 @@ namespace toolWebsevice
         BLL bll = new BLL();
         public cmUserInfo GetUserInfo(string strJson)
         {
-           return bll.GetUser(string.Format("where Id='{0}'", strJson.Trim()));
+           return bll.GetUser(string.Format("where username='{0}'", strJson.Trim()));
         }
 
         #region  
