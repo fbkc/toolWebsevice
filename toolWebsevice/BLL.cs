@@ -175,5 +175,17 @@ namespace toolWebsevice
                new SqlParameter("@productId", SqlHelper.ToDBNull(img.productId)),
                new SqlParameter("@userId", SqlHelper.ToDBNull(img.userId)));
         }
+        /// <summary>
+        /// 更新会员 总的已发条数，今日已发条数，上一条发布时间
+        /// </summary>
+        /// <param name="sqlstr"></param>
+        public void UpUserPubInformation(int Id)
+        {
+            int a = SqlHelper.ExecuteNonQuery(@"UPDATE [AutouSend].[dbo].[userInfo]
+   SET [endPubCount] = endPubCount+1
+      ,[endTodayPubCount] = endTodayPubCount+1
+      ,[beforePubTime] = getdate() where Id=@Id",
+      new SqlParameter("@Id", SqlHelper.ToDBNull(Id)));
+        }
     }
 }
