@@ -39,6 +39,11 @@ namespace toolWebsevice
             }
             context.Response.Write(_strContent.ToString());
         }
+        /// <summary>
+        /// 根据username获取用户信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public string GetUserInformation(HttpContext context)
         {
             try
@@ -54,6 +59,11 @@ namespace toolWebsevice
                 return json.WriteJson(0, ex.ToString(), new { });
             }
         }
+        /// <summary>
+        /// 根据userId获取用户信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public string GetUserByUserId(HttpContext context)
         {
             try
@@ -69,6 +79,11 @@ namespace toolWebsevice
                 return json.WriteJson(0, ex.ToString(), new { });
             }
         }
+        /// <summary>
+        /// 发布一条，更新userInfo已发条数等信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public string UpUserPubInformation(HttpContext context)
         {
             try
