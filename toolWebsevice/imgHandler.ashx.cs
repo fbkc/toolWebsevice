@@ -26,7 +26,7 @@ namespace toolWebsevice
                 context.Response.Write("");
             try
             {
-                txt = Tools.Decode(txt, key, iv);
+                txt =Tools.Decode(txt, key, iv);
                 //得到Bitmap(传入Rectangle.Empty自动计算宽高)
                 Font font = new System.Drawing.Font("Arial", 14, (System.Drawing.FontStyle.Regular));
                 //System.Drawing.Drawing2D.LinearGradientBrush brush1 = new System.Drawing.Drawing2D.LinearGradientBrush(new Rectangle(0, 0, image.Width, image.Height), Color.Red, Color.Blue, 1.2F, true);

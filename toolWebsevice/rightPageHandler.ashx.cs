@@ -19,15 +19,15 @@ namespace toolWebsevice
             context.Response.ContentType = "text/html";
             context.Response.AddHeader("Access-Control-Allow-Origin", "*");
             string uname = context.Request["uname"];
-            string realmId = context.Request["realmId"];
             if (!string.IsNullOrEmpty(uname))
             {
                 //公司/会员信息
                 cmUserInfo uInfo = bll.GetUser(string.Format("where username='{0}'", uname));
                 string key = "toolWebs";//密钥
                 string iv = "100dh888";//偏移量
-                string userTel = Tools.Encode(uInfo.telephone, key, iv);
-                string userModile = Tools.Encode(uInfo.modile, key, iv);
+                //string key = NetHelper.GetMD5("100dh888");
+                string userTel =HttpUtility.UrlEncode(Tools.Encode(uInfo.modile, key, iv));
+                string userModile = HttpUtility.UrlEncode(Tools.Encode(uInfo.modile, key, iv));
                 var data = new
                 {
                     userInfo = uInfo,
